@@ -1,0 +1,114 @@
+package 作业1;
+
+import java.util.Scanner;
+
+public class 成绩信息 {
+	public static double score[];// 定义初始值null
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int choose = menu();
+		double average, high, low;
+		while (choose != 5) {
+			switch (choose) {
+			case 1:
+				input();
+				break;
+			case 2:
+				average = getAverage();
+				if (average != -1)
+					System.out.println("平均成绩：" + average);
+				break;
+			case 3:
+				high = getHigh();
+				if (high != -1)
+					System.out.println("最高成绩：" + high);
+				break;
+			case 4:
+				low = getLow();
+				if (low != -1)
+					System.out.println("最低成绩：" + low);
+				break;
+			default:
+				System.out.println("输入无效，重新选择！");
+			}
+			choose = menu();
+		}
+		System.out.println("程序退出，欢迎下次使用！");
+	}
+
+	// 输入
+	public static void input() {
+		score = new double[5];
+		Scanner scan = new Scanner(System.in);
+		for (int i = 0; i < score.length; i++) {
+			System.out.println("请输入" + (i + 1) + "个成绩：");
+			boolean ok = false;
+			while (!ok) {
+				score[i] = scan.nextDouble();
+				if (score[i] < 0 || score[i] > 100)
+					System.out.println("成绩无效！请重新输入！");
+				else
+					ok = true;
+			}
+		}
+	}
+
+	// 取平均成绩
+	public static double getAverage() {
+		if (score == null) {
+			System.out.println("请先输入成绩！");
+			return -1;
+		}
+		double average;
+		double sum = 0;
+		for (int i = 0; i < score.length; i++)
+			sum = sum + score[i];
+		average = sum / score.length;
+		return average;
+	}
+
+	// 取最高成绩
+	public static double getHigh() {
+		if (score == null) {
+			System.out.println("请先输入成绩！");
+			return -1;
+		}
+		double high = score[0];
+		for (int i = 0; i < score.length; i++) {
+			if (high < score[i])
+				high = score[i];
+		}
+		return high;
+	}
+
+	// 取最低成绩
+	public static double getLow() {
+		if (score == null) {
+			System.out.println("请先输入成绩！");
+			return -1;
+		}
+		double low = score[0];
+		for (int i = 0; i < score.length; i++) {
+			if (low > score[i])
+				low = score[i];
+		}
+		return low;
+	}
+
+	// 菜单
+	public static int menu() {
+		int choice = 0;
+		System.out.println("======WTU Student Grades======");
+		System.out.println("1.Input");
+		System.out.println("2.Average");
+		System.out.println("3.High");
+		System.out.println("4.Low");
+		System.out.println("5.Exit");
+		System.out.println("Please choose(1-5)");
+		Scanner scan = new Scanner(System.in);
+		choice = scan.nextInt();
+		return choice;
+	}
+
+}
